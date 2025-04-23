@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Verificación de Licencia - Jalisco</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0; padding: 0;
+            background-color: #fff;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        .logo { width: 150px; }
+
+        .main-title-container {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .main-title { font-size: 28px; font-weight: bold; }
+
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .data-container {
+            width: 100%;
+            max-width: 600px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+        }
+
+        .data-label { font-weight: bold; color: #555; }
+        .valid-tag {
+            background: #4caf50;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 12px;
+            color: #777;
+            border-top: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="Gobierno_de_Jalisco_18-24.svg.png" alt="Logo Jalisco" class="logo" />
+    </header>
+
+    <div class="main-title-container">
+        <h2 class="main-title">Verificación de Licencia de Conducir</h2>
+    </div>
+
+    <div class="content">
+        <div class="data-container" id="data-container">
+            <div class="data-row"><span class="data-label">NOMBRE:</span><span id="nombre"></span></div>
+            <div class="data-row"><span class="data-label">NO. DOCUMENTO:</span><span id="documento"></span></div>
+            <div class="data-row"><span class="data-label">TIPO:</span><span id="tipo"></span></div>
+            <div class="data-row"><span class="data-label">FECHA VIGENCIA:</span><span id="fecha"></span></div>
+            <div class="data-row"><span class="data-label">VIGENCIA:</span><span id="vigencia"></span></div>
+            <div class="data-row"><span class="data-label">EMITIDA EN:</span><span id="emitida"></span></div>
+        </div>
+    </div>
+
+    <footer>© 2025 - Cosmocoder S.A. de C.V.</footer>
+
+    <script>
+        // Base de datos simulada con ID y detalles de licencia
+        const baseDeDatos = {
+          "ABC123": {
+            nombre: "Juan Pérez",
+            licencia: "ABC123",
+            tipo: "A",
+            expedicion: "2023-01-15",
+            vencimiento: "2026-01-15"
+          },
+          "XYZ789": {
+            nombre: "María Gómez",  
+            licencia: "XYZ789",
+            tipo: "B",
+            expedicion: "2022-07-10",
+            vencimiento: "2025-07-10"
+          },
+          "GDL001": {
+            nombre: "Carlos Ruiz",
+            licencia: "GDL001",
+            tipo: "C",
+            expedicion: "2024-03-01",
+            vencimiento: "2027-03-01"
+          }
+        };
+    
+        // Simula la acción de verificación de captcha
+        document.getElementById('captchaCheckbox').addEventListener('click', function() {
+          const verifying = document.getElementById('verifying');
+          verifying.style.display = 'flex';  // Muestra el spinner de verificación
+    
+          setTimeout(function() {
+            verifying.style.display = 'none';  // Oculta el spinner
+            const checkmark = document.getElementById('checkmark');
+            checkmark.style.display = 'block';  // Muestra el check verde
+    
+            const checkbox = document.getElementById('captchaCheckbox');
+            checkbox.style.backgroundColor = '#f0fff0';
+            checkbox.style.borderColor = '#4caf50';
+    
+            // Simulando un ID de licencia (puedes cambiar esto según lo que elijas)
+            const licenciaID = "GDL001";
+    
+            // Buscar los datos basados en el ID
+            const datos = baseDeDatos[licenciaID];
+    
+            if (datos) {
+              document.getElementById('resultado').innerHTML = `
+                <h1>Licencia válida</h1>
+                <p><strong>Nombre:</strong> ${datos.nombre}</p>
+                <p><strong>Número de Licencia:</strong> ${datos.licencia}</p>
+                <p><strong>Tipo:</strong> ${datos.tipo}</p>
+                <p><strong>Fecha de Expedición:</strong> ${datos.expedicion}</p>
+                <p><strong>Válida Hasta:</strong> ${datos.vencimiento}</p>
+              `;
+            } else {
+              document.getElementById('resultado').innerHTML = `
+                <h1>Licencia no encontrada</h1>
+                <p class="error">No hay datos asociados al ID: <strong>${licenciaID}</strong></p>
+              `;
+            }
+          }, 1500);  // Simula el tiempo de verificación (1.5 segundos)
+        });
+      </script>
+    </body>
+    </html>
