@@ -1,130 +1,200 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Verificación de Licencia - Jalisco</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificación de Licencia de Conducir - Jalisco</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
         body {
             font-family: 'Roboto', sans-serif;
-            margin: 0; padding: 0;
-            background-color: #fff;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
             color: #333;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
-
+        
         header {
             text-align: center;
             padding: 15px 0;
+            background-color: white;
         }
-
-        .logo { width: 150px; }
-
+        
+        .logo-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .logo {
+            width: 185px;
+            margin-bottom: 1px;
+        }
+        
+        .main-title-wrapper {
+            background-color: #f5f5f5;
+        }
+        
         .main-title-container {
-            background: #f5f5f5;
-            padding: 20px;
+            background-color: #ffffff;
+            padding: 20px 0;
+            margin: 0;
             text-align: center;
         }
-
-        .main-title { font-size: 28px; font-weight: bold; }
-
+        
+        .main-title {
+            color: #495057;
+            font-size: 28px;
+            margin: 0;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .divider-bar {
+            height: 1px;
+            background-color: #ddd;
+        }
+        
         .content {
             flex-grow: 1;
             padding: 20px;
             display: flex;
             justify-content: center;
+            align-items: flex-start;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-
+        
         .data-container {
-            width: 100%;
-            max-width: 600px;
-            background: #fff;
+            width: 600px;
+            padding: 20px;
+            background-color: white;
             border: 1px solid #ddd;
             border-radius: 5px;
-            padding: 20px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .data-row {
             display: flex;
-            justify-content: space-between;
             margin-bottom: 15px;
             border-bottom: 1px solid #eee;
-            padding-bottom: 8px;
+            padding-bottom: 10px;
         }
 
-        .data-label { font-weight: bold; color: #555; }
+        .data-label {
+            width: 40%;
+            font-weight: bold;
+            color: #666;
+        }
+
+        .data-value {
+            width: 60%;
+            font-weight: 400;
+        }
+
         .valid-tag {
-            background: #4caf50;
+            display: inline-block;
+            background-color: #4caf50;
             color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 13px;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 14px;
         }
-
-        footer {
+        
+        .footer {
+            background-color: white;
+            border-top: 1px solid #ddd;
             text-align: center;
             padding: 15px;
-            font-size: 12px;
             color: #777;
-            border-top: 1px solid #ccc;
+            font-size: 12px;
+            margin-top: auto;
         }
     </style>
 </head>
 <body>
     <header>
-        <img src="Gobierno_de_Jalisco_18-24.svg.png" alt="Logo Jalisco" class="logo" />
+        <div class="logo-container">
+            <img src="Gobierno_de_Jalisco_18-24.svg.png" alt="Jalisco Gobierno Logo" class="logo">
+        </div>
     </header>
 
-    <div class="main-title-container">
-        <h2 class="main-title">Verificación de Licencia de Conducir</h2>
+    <div class="main-title-wrapper">
+        <div class="main-title-container">
+            <h2 class="main-title">Verificación de Licencia de Conducir</h2>
+        </div>
+        <div class="divider-bar"></div>
     </div>
 
     <div class="content">
-        <div class="data-container" id="data-container">
-            <div class="data-row"><span class="data-label">NOMBRE:</span><span id="nombre"></span></div>
-            <div class="data-row"><span class="data-label">NO. DOCUMENTO:</span><span id="documento"></span></div>
-            <div class="data-row"><span class="data-label">TIPO:</span><span id="tipo"></span></div>
-            <div class="data-row"><span class="data-label">FECHA VIGENCIA:</span><span id="fecha"></span></div>
-            <div class="data-row"><span class="data-label">VIGENCIA:</span><span id="vigencia"></span></div>
-            <div class="data-row"><span class="data-label">EMITIDA EN:</span><span id="emitida"></span></div>
+        <div class="data-container">
+            <div class="data-row">
+                <div class="data-label">NOMBRE:</div>
+                <div class="data-value" id="nombre"></div>
+            </div>
+            <div class="data-row">
+                <div class="data-label">NO. DOCUMENTO:</div>
+                <div class="data-value" id="documento"></div>
+            </div>
+            <div class="data-row">
+                <div class="data-label">TIPO:</div>
+                <div class="data-value" id="tipo"></div>
+            </div>
+            <div class="data-row">
+                <div class="data-label">FECHA VIGENCIA:</div>
+                <div class="data-value" id="fecha"></div>
+            </div>
+            <div class="data-row">
+                <div class="data-label">VIGENCIA:</div>
+                <div class="data-value" id="vigencia"></div>
+            </div>
+            <div class="data-row">
+                <div class="data-label">EMITIDA EN:</div>
+                <div class="data-value" id="emitida"></div>
+            </div>
         </div>
     </div>
 
-    <footer>© 2025 - Cosmocoder S.A. de C.V.</footer>
+    <footer class="footer">
+        © 2025 - Cosmocoder S.A. de C.V.
+    </footer>
 
     <script>
-        async function cargarDatos() {
+        // Función para obtener parámetros de la URL
+        function getURLParams() {
             const params = new URLSearchParams(window.location.search);
-            const docId = params.get('documento');
-
-            if (!docId) return alert("No se especificó ningún número de documento.");
-
-            try {
-                const response = await fetch('data/licencias.json');
-                const licencias = await response.json();
-
-                const licencia = licencias.find(l => l.documento === docId);
-
-                if (!licencia) {
-                    alert("Licencia no encontrada.");
-                    return;
-                }
-
-                document.getElementById('nombre').textContent = licencia.nombre;
-                document.getElementById('documento').textContent = licencia.documento;
-                document.getElementById('tipo').textContent = licencia.tipo;
-                document.getElementById('fecha').textContent = licencia.fecha;
-                document.getElementById('vigencia').innerHTML = <span class="valid-tag">${licencia.vigencia}</span>;
-                document.getElementById('emitida').textContent = licencia.emitida;
-
-            } catch (error) {
-                alert("Error al cargar los datos: " + error.message);
-            }
+            return {
+                nombre: params.get('nombre') || 'OMAR ERNESTO OCAMPO TORRES',
+                documento: params.get('documento') || '14A6808915',
+                tipo: params.get('tipo') || 'CHOFER',
+                fecha: params.get('fecha') || '22/04/2029',
+                vigencia: params.get('vigencia') || 'VÁLIDA',
+                emitida: params.get('emitida') || 'OFICINAS CENTRALES'
+            };
         }
 
+        // Función para cargar los datos
+        function cargarDatos() {
+            const datos = getURLParams();
+            
+            document.getElementById('nombre').textContent = datos.nombre;
+            document.getElementById('documento').textContent = datos.documento;
+            document.getElementById('tipo').textContent = datos.tipo;
+            document.getElementById('fecha').textContent = datos.fecha;
+            
+            const vigenciaElement = document.getElementById('vigencia');
+            vigenciaElement.innerHTML = <span class="valid-tag">${datos.vigencia}</span>;
+            
+            document.getElementById('emitida').textContent = datos.emitida;
+        }
+
+        // Ejecutar al cargar la página
         window.onload = cargarDatos;
     </script>
 </body>
