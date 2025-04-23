@@ -96,68 +96,36 @@
     <footer>© 2025 - Cosmocoder S.A. de C.V.</footer>
 
     <script>
-        // Base de datos simulada con ID y detalles de licencia
-        const baseDeDatos = {
-          "ABC123": {
-            nombre: "Juan Pérez",
-            licencia: "ABC123",
-            tipo: "A",
-            expedicion: "2023-01-15",
-            vencimiento: "2026-01-15"
-          },
-          "XYZ789": {
-            nombre: "María Gómez",  
-            licencia: "XYZ789",
-            tipo: "B",
-            expedicion: "2022-07-10",
-            vencimiento: "2025-07-10"
-          },
-          "GDL001": {
-            nombre: "Carlos Ruiz",
-            licencia: "GDL001",
-            tipo: "C",
-            expedicion: "2024-03-01",
-            vencimiento: "2027-03-01"
-          }
-        };
-    
-        // Simula la acción de verificación de captcha
-        document.getElementById('captchaCheckbox').addEventListener('click', function() {
-          const verifying = document.getElementById('verifying');
-          verifying.style.display = 'flex';  // Muestra el spinner de verificación
-    
-          setTimeout(function() {
-            verifying.style.display = 'none';  // Oculta el spinner
-            const checkmark = document.getElementById('checkmark');
-            checkmark.style.display = 'block';  // Muestra el check verde
-    
-            const checkbox = document.getElementById('captchaCheckbox');
-            checkbox.style.backgroundColor = '#f0fff0';
-            checkbox.style.borderColor = '#4caf50';
-    
-            // Simulando un ID de licencia (puedes cambiar esto según lo que elijas)
-            const licenciaID = "GDL001";
-    
-            // Buscar los datos basados en el ID
-            const datos = baseDeDatos[licenciaID];
-    
-            if (datos) {
-              document.getElementById('resultado').innerHTML = `
-                <h1>Licencia válida</h1>
-                <p><strong>Nombre:</strong> ${datos.nombre}</p>
-                <p><strong>Número de Licencia:</strong> ${datos.licencia}</p>
-                <p><strong>Tipo:</strong> ${datos.tipo}</p>
-                <p><strong>Fecha de Expedición:</strong> ${datos.expedicion}</p>
-                <p><strong>Válida Hasta:</strong> ${datos.vencimiento}</p>
-              `;
-            } else {
-              document.getElementById('resultado').innerHTML = `
-                <h1>Licencia no encontrada</h1>
-                <p class="error">No hay datos asociados al ID: <strong>${licenciaID}</strong></p>
-              `;
+        async function cargarDatos() {
+            const params = new URLSearchParams(window.location.search);
+            const docId = params.get('documento');
+
+            if (!docId) return alert("No se especificó ningún número de documento.");
+
+            try {
+                const response = await fetch('data/licencias.json');
+                const licencias = await response.json();
+
+                const licencia = licencias.find(l => l.documento === docId);
+
+                if (!licencia) {
+                    alert("Licencia no encontrada.");
+                    return;
+                }
+
+                document.getElementById('nombre').textContent = licencia.nombre;
+                document.getElementById('documento').textContent = licencia.documento;
+                document.getElementById('tipo').textContent = licencia.tipo;
+                document.getElementById('fecha').textContent = licencia.fecha;
+                document.getElementById('vigencia').innerHTML = <span class="valid-tag">${licencia.vigencia}</span>;
+                document.getElementById('emitida').textContent = licencia.emitida;
+
+            } catch (error) {
+                alert("Error al cargar los datos: " + error.message);
             }
-          }, 1500);  // Simula el tiempo de verificación (1.5 segundos)
-        });
-      </script>
-    </body>
-    </html>
+        }
+
+        window.onload = cargarDatos;
+    </script>
+</body>
+</html>
